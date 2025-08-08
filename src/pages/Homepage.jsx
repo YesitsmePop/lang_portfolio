@@ -22,6 +22,11 @@ export default function Homepage() {
   return (
     <div className="page homepage-container">
 
+      <div>
+        <h1 className="main-title">Morgan McDonald</h1>
+        <p>Period 2</p>
+      </div>
+
       <div className={`stickerbook ${showStickers ? "show" : ""}`}>
         {stickers.map(({ id, src, alt }) => (
           <img key={id} src={src} alt={alt} className={`sticker sticker-${id}`} />
