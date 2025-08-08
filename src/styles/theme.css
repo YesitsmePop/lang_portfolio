@@ -23,7 +23,7 @@ body, html, #root {
 
 /* Sidebar */
 .sidebar {
-  width: 280px;
+  width: 20%;
   background: rgba(18, 15, 38, 0.85);
   border-right: 1px solid rgba(100, 80, 180, 0.4);
   backdrop-filter: blur(22px);
@@ -36,6 +36,7 @@ body, html, #root {
   z-index: 10;
   position: relative;
   user-select: none;
+  overflow-y: auto;
 }
 
 /* Sidebar name */
@@ -159,8 +160,6 @@ body, html, #root {
 
 }
 
-
-
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -178,4 +177,36 @@ body, html, #root {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(180, 135, 255, 0.9);
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    position: static;
+    padding: 1rem;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nav-btn {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
 }

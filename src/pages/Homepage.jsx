@@ -8,6 +8,7 @@ const stickers = [
 ];
 
 export default function Homepage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [showStickers, setShowStickers] = useState(false);
 
   useEffect(() => {
