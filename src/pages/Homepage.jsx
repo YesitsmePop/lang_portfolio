@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import sticker1 from "./sticker1.jpg";
-import sticker2 from "./sticker2.jpg";
-import sticker3 from "./sticker3.jpg";
 import "./stickers.css"; 
 
 const stickers = [
-  {id: 1, src: sticker1, alt: "Sticker 1"},
-  {id: 2, src: sticker2, alt: "Sticker 2"},
-  {id: 3, src: sticker3, alt: "Sticker 3"}
+  {id: 1, src: "/sticker1.JPG", alt: "Sticker 1"},
+  {id: 2, src: "/sticker2.JPG", alt: "Sticker 2"},
+  {id: 3, src: "/sticker3.JPG", alt: "Sticker 3"}
 ];
 
 export default function Homepage() {
