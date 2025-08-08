@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./stickers.css"; 
 
 const stickers = [
-  {id: 1, src: "/sticker1.jpg", alt: "Sticker 1"},
-  {id: 2, src: "/sticker2.jpg", alt: "Sticker 2"},
-  {id: 3, src: "/sticker3.jpg", alt: "Sticker 3"}
+  {id: 1, src: "public/sticker1.jpg", alt: "Sticker 1"},
+  {id: 2, src: "public/sticker2.jpg", alt: "Sticker 2"},
+  {id: 3, src: "public/sticker3.jpg", alt: "Sticker 3"}
 ];
 
 export default function Homepage() {
