@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import sticker1 from "../assets/images/sticker1.jpg";
-import sticker2 from "../assets/images/sticker2.jpg";
-import sticker3 from "../assets/images/sticker3.jpg";
+import sticker1 from "../assets/sticker1.jpg";
+import sticker2 from "../assets/sticker2.jpg";
+import sticker3 from "../assets/sticker3.jpg";
 import "./stickers.css"; 
 
 const stickers = [
