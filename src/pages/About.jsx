@@ -1,8 +1,27 @@
+import "./stickers.css";
+import React, { useState, useEffect} from "react";
+
+const stickers = [
+  {id: 1, src: "/sticker1.JPG", alt: "Sticker"},
+];
+
 export default function About() {
+
+  const [showStickers, setShowStickers] = useState(false);
+  useEffect(() => {
+      const timeout = setTimeout(() => setShowStickers(true), 300);
+      return () => clearTimeout(timeout);
+    }, []);
+
   return (
     <div className="page">
       <h1>About the Author</h1>
-      <p>Morgan McDonald is a Junior from Ripon High School, California. He is an established front-end developer and academic achiever, with aspirations to achieve the highest level of education his family has seen yet.<br></br> <br></br> 
+      <div className={`stickerbook ${showStickers ? "show" : ""}`}>
+        {stickers.map(({ id, src, alt }) => (
+          <img key={id} src={src} alt={alt} className={`sticker sticker-${id} weird-sticker`} />
+        ))}
+      </div>
+      <p>Morgan McDonald is a Junior from Ripon High School, California. He is an established front-end developer with strong academics, with aspirations to achieve the highest level of education his family has seen yet.<br></br> <br></br> 
         Beginning High School in 2023, he has strived to succeed in challenging courses such as AP World History and now AP English Language & Composition.<br></br> <br></br> 
         Additionally, Morgan has played for the Ripon High Varsity Golf team, with outstanding achievements such as a 2nd place finish in the Oakdale 100 event during his sophomore year. His subject area of interest is web development, and has produced a variety of trivial to fascinating works including <a href="https://opal-vox.vercel.app/" target="_blank">Opal-Vox</a>, Dot-Shot, and others. <br></br> <br></br> 
         He attends Place of Refuge church in Manteca, California, and isn’t currently employed aside from freelancing, though is looking to work for Ripon Golf Club in the near future. He enjoys playing cards and programming in his free time. <br></br> <br></br> 

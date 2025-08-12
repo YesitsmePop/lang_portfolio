@@ -37,6 +37,7 @@ body, html, #root {
   position: relative;
   user-select: none;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Sidebar name */
@@ -135,7 +136,8 @@ body, html, #root {
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 90%;
+  height: fit-content;
+  padding: 2rem;
 }
 
 /* Background Canvas */
@@ -157,7 +159,6 @@ body, html, #root {
     text-align: center;
     font-size: 1.1rem;
     line-height: 1.5;
-
 }
 
 /* Scrollbar */
@@ -210,3 +211,4 @@ body, html, #root {
     padding: 0.8rem;
   }
 }
+

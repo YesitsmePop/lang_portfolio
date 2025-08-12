@@ -34,7 +34,6 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-/* Sticker base style */
 .sticker {
   width: 40%;
   height: 40%;
@@ -54,6 +53,11 @@
   /* Start smaller and rotated */
   transform: scale(0.6) rotateZ(-20deg) rotateX(5deg);
   animation-fill-mode: forwards;
+}
+
+.weird-sticker {
+  margin-top: 0 !important;
+  margin-bottom: 2rem !important;
 }
 
 /* Animate stickers individually with slight delay and unique rotation */

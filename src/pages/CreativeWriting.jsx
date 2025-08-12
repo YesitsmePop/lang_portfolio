@@ -2,27 +2,27 @@ import React, { useState } from "react";
 import "./WritingTabs.css";
 
 const creativeSubtabs = [
-  { id: "tab1", label: "subtab 1" },
-  { id: "tab2", label: "subtab 2" },
-  { id: "tab3", label: "subtab 3" },
+  { id: "tab1", label: "I Am Poem" },
+  { id: "tab2", label: "Haiku" },
+  { id: "tab3", label: "etc..." },
 ];
 
 const creativeContent = {
   tab1: (
     <div>
-      <h2>Something Here</h2>
+      <h2>I Am Poem</h2>
       <p>More Work Here</p>
     </div>
   ),
   tab2: (
     <div>
-      <h2>Something Here</h2>
+      <h2>Haiku</h2>
       <p>More Work Here</p>
     </div>
   ),
   tab3: (
     <div>
-      <h2>Something Here</h2>
+      <h2>etc...</h2>
       <p>More Work Here</p>
     </div>
   ),

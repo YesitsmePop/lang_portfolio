@@ -2,27 +2,27 @@ import React, { useState } from "react";
 import "./WritingTabs.css";
 
 const formalSubtabs = [
-  { id: "tab1", label: "subtab 1" },
-  { id: "tab2", label: "subtab 2" },
-  { id: "tab3", label: "subtab 3" },
+  { id: "tab1", label: "Rhetorical Analysis" },
+  { id: "tab2", label: "Argument" },
+  { id: "tab3", label: "Synthesis" },
 ];
 
 const formalContent = {
   tab1: (
     <div>
-      <h2>subtab 1</h2>
+      <h2>Rhetorical Analysis</h2>
       <p>This will eventually be a well thought out piece of work</p>
     </div>
   ),
   tab2: (
     <div>
-      <h2>subtab 2</h2>
+      <h2>Argument</h2>
       <p>This will eventually be a well thought out piece of work</p>
     </div>
   ),
   tab3: (
     <div>
-      <h2>subtab 3</h2>
+      <h2>Synthesis</h2>
       <p>This will eventually be a well thought out piece of work</p>
     </div>
   ),
