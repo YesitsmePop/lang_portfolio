@@ -11,18 +11,20 @@ const posts = [
   },
 ];
 
+
 export default function PersonalBlog() {
   const [activePost, setActivePost] = useState(null);
   const [postContent, setPostContent] = useState("");
+  const [wordCount, setWordCount] = useState(0);
   const [snippets, setSnippets] = useState({});
 
-  // Fetch snippets on mount
+  // Fetch snippets for all posts on mount
   useEffect(() => {
     posts.forEach(async (post) => {
       try {
         const res = await fetch(post.file);
         const text = await res.text();
-        const snippet = text.length > 150 ? text.slice(0, 60) + "..." : text;
+        const snippet = text.length > 150 ? text.slice(0, 150) + "..." : text;
         setSnippets((prev) => ({ ...prev, [post.id]: snippet }));
       } catch (err) {
         console.error("Error fetching snippet:", err);
@@ -35,10 +37,16 @@ export default function PersonalBlog() {
       const response = await fetch(post.file);
       const text = await response.text();
       setPostContent(text);
+
+      // Count words: split on whitespace and filter out empty strings
+      const words = text.trim().split(/\s+/).filter(Boolean);
+      setWordCount(words.length);
+
       setActivePost(post);
     } catch (err) {
       console.error("Error loading post:", err);
       setPostContent("Failed to load content.");
+      setWordCount(0);
       setActivePost(post);
     }
   };
@@ -46,6 +54,7 @@ export default function PersonalBlog() {
   const closePost = () => {
     setActivePost(null);
     setPostContent("");
+    setWordCount(0);
   };
 
   if (activePost) {
@@ -53,10 +62,13 @@ export default function PersonalBlog() {
       <div className="page blog-post">
         <h1>{activePost.title}</h1>
         <small>{activePost.date}</small>
-        <img src={activePost.imgfile} alt={activePost.title} className="blog-post-image" />
-        <p style={{ whiteSpace: "pre-wrap" }}>{postContent}</p>
-        <button className="nav-btn" onClick={closePost}>
-          Back to Blog
+        <img src={activePost.imgfile} alt={activePost.title} style={{ width: "100%", maxHeight: "400px", objectFit: "cover", marginBottom: "1rem" }} />
+        <p style={{ whiteSpace: "pre-wrap", marginTop: "1rem"}}>{postContent}</p>
+        <div style={{ marginTop: "1rem", fontStyle: "italic" }}>
+          Total words: {wordCount}
+        </div>
+        <button className="nav-btn" style={{marginTop: "1rem" }} onClick={closePost}>
+          Back to Blog List
         </button>
       </div>
     );
