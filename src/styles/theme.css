@@ -76,6 +76,10 @@ body, html, #root {
   box-shadow: 0 0 4px transparent;
 }
 
+.sidebar-btn {
+  margin-top: 1rem;
+}
+
 .nav-btn::before {
   content: "";
   position: absolute;
@@ -160,6 +164,56 @@ body, html, #root {
     font-size: 1.1rem;
     line-height: 1.5;
 }
+
+.blog-post-card {
+  cursor: pointer;
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: rgba(50, 30, 120, 0.25);
+  box-shadow: 0 0 15px rgba(90, 60, 200, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Top row inputs: date + title */
+.top-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Blog body container with image button */
+.body-container {
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.body-textarea {
+  width: 100%;
+  max-width: 1200px; /* wider than main-content default */
+  min-width: 600px;
+}
+
+/* Image upload button */
+.image-btn {
+  margin-top: 1rem;
+}
+
+/* Centered submit button */
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.page img {
+  max-width: 80%;      
+  height: auto;        
+  display: block;       
+  margin: 1rem auto;    
+  border-radius: 8px;   
+}
+
 
 /* Scrollbar */
 ::-webkit-scrollbar {

@@ -4,13 +4,17 @@ import { OrbitControls, Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import "./styles/theme.css";
 
+// Pages
 import Home from "./pages/Homepage";
 import About from "./pages/About";
-import PersonalBlog from "./pages/Blog";
+import PersonalBlog from "./pages/PersonalBlog";
 import VisualAnalysis from "./pages/VisualAnalysis";
 import FormalWriting from "./pages/FormalWriting";
 import CreativeWriting from "./pages/CreativeWriting";
 import Professional from "./pages/Professional";
+
+// Sidebar component
+import Sidebar from "./components/Sidebar";
 
 const pages = {
   Home,
@@ -56,12 +60,10 @@ function Particles() {
 
 function RotatingSharpShapes() {
   const group = useRef();
-
   useFrame(({ clock }) => {
     group.current.rotation.x = clock.elapsedTime * 0.3;
     group.current.rotation.y = clock.elapsedTime * 0.6;
   });
-
   return (
     <group ref={group}>
       <mesh position={[5, 3, -10]}>
@@ -102,25 +104,45 @@ function RotatingSharpShapes() {
 
 export default function App() {
   const [activePage, setActivePage] = useState("Home");
-  const PageComponent = pages[activePage];
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  // Map pages to components with props
+  const pageComponents = {
+    ...pages,
+    "Personal Blog": () => (
+      <PersonalBlog
+        setActivePage={setActivePage}
+        setSelectedPost={setSelectedPost}
+      />
+    ),
+  };
+
+  const PageComponent = pageComponents[activePage];
+
+  // Determine which sidebar tabs are visible
+  const visibleTabs =
+    activePage === "New Blog" || activePage === "Blog Post"
+      ? ["blog"] // only show Personal Blog tab
+      : ["home", "about", "blog", "visual", "formal", "creative", "professional"];
+
+  // Map tab IDs to activePage names
+  const tabIdToPage = {
+    home: "Home",
+    about: "About the Author",
+    blog: "Personal Blog",
+    visual: "Visual Analysis",
+    formal: "Formal Writing",
+    creative: "Creative Writing",
+    professional: "Professional",
+  };
 
   return (
     <div className="app-container">
-      <aside className="sidebar">
-        <div className="sidebar-name">Morgan McDonald</div>
-        <nav className="nav-links">
-          {Object.keys(pages).map((page) => (
-            <button
-              key={page}
-              className={`nav-btn ${activePage === page ? "active" : ""}`}
-              onClick={() => setActivePage(page)}
-              aria-label={`Go to ${page}`}
-            >
-              {page}
-            </button>
-          ))}
-        </nav>
-      </aside>
+      <Sidebar
+        active={activePage.toLowerCase().replace(/\s+/g, "")} // convert activePage to match tab id
+        setActive={(tabId) => setActivePage(tabIdToPage[tabId])}
+        visibleTabs={visibleTabs}
+      />
 
       <main className="main-content" role="main">
         <PageComponent />
