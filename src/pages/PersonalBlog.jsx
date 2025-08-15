@@ -5,7 +5,6 @@ const posts = [
     id: 1,
     title: "Is Testing Turning Data?",
     date: "August 13 2025",
-    snippet: "Living in a world where substance abuse and the will to fit in can become so prevalent, it occurs...",
     file: "/posts/post1.txt",
     imgfile: "/posts/images/post1.jpg"
   },
@@ -76,6 +75,9 @@ export default function PersonalBlog() {
 
   return (
     <div className="page">
+
+      <h1>Personal Blog</h1>
+
       <div className="main-content" style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginTop: "1.5rem" }}>
         {posts.map((post) => (
           <div

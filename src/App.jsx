@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -13,7 +13,7 @@ import FormalWriting from "./pages/FormalWriting";
 import CreativeWriting from "./pages/CreativeWriting";
 import Professional from "./pages/Professional";
 
-// Sidebar component
+// Sidebar
 import Sidebar from "./components/Sidebar";
 
 const pages = {
@@ -26,79 +26,87 @@ const pages = {
   Professional,
 };
 
-function Particles() {
-  const count = 1200;
-  const positions = new Float32Array(count * 3);
-  const colors = new Float32Array(count * 3);
+function DenseParticles() {
+  const count = 5000; 
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 200;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 200;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 200;
+    }
+    return arr;
+  }, [count]);
 
-  for (let i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+  const colors = useMemo(() => {
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const hue = 0.55 + Math.random() * 0.15;
+      const sat = 1;
+      const light = 0.6 + Math.random() * 0.2;
+      const c = new THREE.Color();
+      c.setHSL(hue, sat, light);
+      arr[i * 3] = c.r;
+      arr[i * 3 + 1] = c.g;
+      arr[i * 3 + 2] = c.b;
+    }
+    return arr;
+  }, [count]);
 
-    const hue = 250 + Math.random() * 35;
-    const color = new THREE.Color();
-    color.setHSL(hue / 360, 0.85, 0.65);
-    colors[i * 3] = color.r;
-    colors[i * 3 + 1] = color.g;
-    colors[i * 3 + 2] = color.b;
-  }
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    ref.current.rotation.y = clock.elapsedTime * 0.02;
+    ref.current.rotation.x = Math.sin(clock.elapsedTime * 0.05) * 0.05;
+  });
 
   return (
-    <Points positions={positions} colors={colors} stride={3}>
+    <Points ref={ref} positions={positions} colors={colors} stride={3}>
       <PointMaterial
-        vertexColors
         transparent
-        size={0.045}
+        size={0.15}
         sizeAttenuation
         depthWrite={false}
-        opacity={0.9}
+        opacity={0.85}
+        vertexColors
       />
     </Points>
   );
 }
 
-function RotatingSharpShapes() {
-  const group = useRef();
+function SpinningGrids() {
+  const floorRef = useRef();
+  const ceilingRef = useRef();
+
   useFrame(({ clock }) => {
-    group.current.rotation.x = clock.elapsedTime * 0.3;
-    group.current.rotation.y = clock.elapsedTime * 0.6;
+    const t = clock.elapsedTime * 0.1;
+    floorRef.current.rotation.z = t;
+    ceilingRef.current.rotation.z = -t;
   });
+
   return (
-    <group ref={group}>
-      <mesh position={[5, 3, -10]}>
-        <octahedronGeometry args={[1.8, 0]} />
-        <meshStandardMaterial
+    <>
+      {/* Floor grid */}
+      <mesh ref={floorRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, -12, 0]}>
+        <planeGeometry args={[400, 400, 80, 80]} />
+        <meshBasicMaterial
+          wireframe
+          transparent
+          opacity={0.25}
+          color="#00faff"
+        />
+      </mesh>
+
+      {/* Ceiling grid */}
+      <mesh ref={ceilingRef} rotation={[Math.PI / 2, 0, 0]} position={[0, 12, 0]}>
+        <planeGeometry args={[400, 400, 80, 80]} />
+        <meshBasicMaterial
+          wireframe
+          transparent
+          opacity={0.25}
           color="#7c3aed"
-          roughness={0.1}
-          metalness={0.8}
-          emissive="#5b21b6"
-          emissiveIntensity={0.6}
         />
       </mesh>
-
-      <mesh position={[-6, -4, -8]}>
-        <tetrahedronGeometry args={[1.2, 0]} />
-        <meshStandardMaterial
-          color="#4c1d95"
-          roughness={0.05}
-          metalness={0.9}
-          emissive="#6d28d9"
-          emissiveIntensity={0.4}
-        />
-      </mesh>
-
-      <mesh position={[-3, 5, -12]} rotation={[Math.PI / 5, Math.PI / 3, 0]}>
-        <icosahedronGeometry args={[1.6, 0]} />
-        <meshStandardMaterial
-          color="#8b5cf6"
-          roughness={0.2}
-          metalness={0.7}
-          emissive="#a78bfa"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-    </group>
+    </>
   );
 }
 
@@ -106,7 +114,6 @@ export default function App() {
   const [activePage, setActivePage] = useState("Home");
   const [selectedPost, setSelectedPost] = useState(null);
 
-  // Map pages to components with props
   const pageComponents = {
     ...pages,
     "Personal Blog": () => (
@@ -119,13 +126,11 @@ export default function App() {
 
   const PageComponent = pageComponents[activePage];
 
-  // Determine which sidebar tabs are visible
   const visibleTabs =
     activePage === "New Blog" || activePage === "Blog Post"
-      ? ["blog"] // only show Personal Blog tab
+      ? ["blog"]
       : ["home", "about", "blog", "visual", "formal", "creative", "professional"];
 
-  // Map tab IDs to activePage names
   const tabIdToPage = {
     home: "Home",
     about: "About the Author",
@@ -139,7 +144,7 @@ export default function App() {
   return (
     <div className="app-container">
       <Sidebar
-        active={activePage.toLowerCase().replace(/\s+/g, "")} // convert activePage to match tab id
+        active={activePage.toLowerCase().replace(/\s+/g, "")}
         setActive={(tabId) => setActivePage(tabIdToPage[tabId])}
         visibleTabs={visibleTabs}
       />
@@ -150,14 +155,18 @@ export default function App() {
 
       <Canvas
         className="background-3d"
-        camera={{ position: [0, 0, 18], fov: 55 }}
+        camera={{ position: [0, 0, 35], fov: 65 }}
         gl={{ alpha: true }}
       >
+        <fog attach="fog" args={["#0a0f2d", 50, 150]} />
         <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={1.2} />
-        <Particles />
-        <RotatingSharpShapes />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate />
+        <pointLight position={[30, 20, 20]} intensity={2} color="#00faff" />
+        <pointLight position={[-30, -20, -10]} intensity={1.5} color="#7c3aed" />
+
+        <DenseParticles />
+        <SpinningGrids />
+
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>
   );
