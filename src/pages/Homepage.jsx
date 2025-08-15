@@ -3,8 +3,6 @@ import "./stickers.css";
 
 const stickers = [
   {id: 1, src: "/sticker3.JPG", alt: "Sticker 1"},
-  {id: 2, src: "/sticker2.JPG", alt: "Sticker 2"},
-//  {id: 3, src: "/sticker3.JPG", alt: "Sticker 3"}
 ];
 
 export default function Homepage() {

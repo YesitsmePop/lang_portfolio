@@ -52,6 +52,14 @@ body, html, #root {
   text-align: center;
 }
 
+.sidebar-logo {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin-left: 0.1rem auto;
+  margin-top: 4rem;
+}
+
 /* Navigation */
 .nav-links {
   width: 100%;
@@ -214,13 +222,6 @@ body, html, #root {
   border-radius: 8px;   
 }
 
-.analysis-title {
-  font-weight: 700;
-  color: #9c00a1;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 0 10px rgba(115, 75, 255, 0.8);
-}
 
 
 /* Scrollbar */
@@ -271,6 +272,11 @@ body, html, #root {
   .nav-btn {
     font-size: 1rem;
     padding: 0.8rem;
+  }
+
+  .sidebar-name {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 }
 

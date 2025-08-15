@@ -2,7 +2,7 @@ import "./stickers.css";
 import React, { useState, useEffect} from "react";
 
 const stickers = [
-  {id: 1, src: "/sticker1.JPG", alt: "Sticker"},
+  {id: 1, src: "/sticker2.JPG", alt: "Sticker"},
 ];
 
 export default function About() {

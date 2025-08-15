@@ -59,7 +59,7 @@ export default function VisualAnalysis() {
   if (activePost) {
     return (
       <div className="page">
-        <h1 className="analysis-title">{activePost.title}</h1>
+        <h1>{activePost.title}</h1>
         <small>{activePost.date}</small>
         <img src={activePost.imgfile} alt={activePost.title} style={{ width: "100%", maxHeight: "400px", objectFit: "cover", marginBottom: "1rem" }} />
         <p style={{ whiteSpace: "pre-wrap", marginTop: "1rem"}}>{postContent}</p>
@@ -91,7 +91,7 @@ export default function VisualAnalysis() {
               e.currentTarget.style.boxShadow = "0 0 15px rgba(90, 60, 200, 0.35)";
             }}
           >
-            <h3 style={{ marginBottom: "0.3rem" }} className="analysis-title">{post.title}</h3>
+            <h3 style={{ marginBottom: "0.3rem" }}>{post.title}</h3>
             <small className="quote" style={{ marginBottom: "0.5rem", display: "block" }}>
               {post.date}
             </small>

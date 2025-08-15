@@ -25,6 +25,7 @@ export default function Sidebar({ active, setActive, visibleTabs }) {
           {tab.label}
         </button>
       ))}
+      <img src="/logo.png" alt="Logo" className="sidebar-logo" />
     </div>
   );
 }
