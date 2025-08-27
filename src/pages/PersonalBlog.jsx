@@ -8,6 +8,13 @@ const posts = [
     file: "/posts/post1.txt",
     imgfile: "/posts/images/post1.jpg"
   },
+  {
+    id: 2,
+    title: "My Perspective on the World",
+    date: "August 27 2025",
+    file: "/posts/post2.txt",
+    imgfile: "/posts/images/post2.jpg"
+  },
 ];
 
 

@@ -270,8 +270,9 @@ body, html, #root {
   }
 
   .nav-btn {
-    font-size: 1rem;
-    padding: 0.8rem;
+    font-size: 1.15rem;
+    padding: 1.1rem 1.2rem;
+    min-height: 44px;
   }
 
   .sidebar-name {
