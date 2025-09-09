@@ -1,35 +1,39 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import "./WritingTabs.css";
 
+
 const creativeSubtabs = [
-  { id: "tab1", label: "I Am Poem" },
-  { id: "tab2", label: "Haiku" },
-  { id: "tab3", label: "etc..." },
+  { id: "tab1", label: "My Name", file: "/creative/name.txt", heading: "My Name...", desc: "Based on 'The House on Mange Street' excerpt" },
+
 ];
 
-const creativeContent = {
-  tab1: (
-    <div>
-      <h2>I Am Poem</h2>
-      <p>More Work Here</p>
-    </div>
-  ),
-  tab2: (
-    <div>
-      <h2>Haiku</h2>
-      <p>More Work Here</p>
-    </div>
-  ),
-  tab3: (
-    <div>
-      <h2>etc...</h2>
-      <p>More Work Here</p>
-    </div>
-  ),
-};
 
 export default function CreativeWriting() {
-  const [activeSubtab, setActiveSubtab] = useState("tab1");
+  const [activeSubtab, setActiveSubtab] = useState(creativeSubtabs[0].id);
+  const [tabText, setTabText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const tab = creativeSubtabs.find((t) => t.id === activeSubtab);
+    if (!tab || !tab.file) {
+      setTabText("");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    fetch(tab.file)
+      .then((res) => {
+        if (!res.ok) throw new Error("File not found");
+        return res.text();
+      })
+      .then((txt) => setTabText(txt))
+      .catch((e) => setError("Could not load writing piece."))
+      .finally(() => setLoading(false));
+  }, [activeSubtab]);
+
+  const tab = creativeSubtabs.find((t) => t.id === activeSubtab);
 
   return (
     <div className="writing-page">
@@ -46,7 +50,17 @@ export default function CreativeWriting() {
           </button>
         ))}
       </div>
-      <div className="subtab-content">{creativeContent[activeSubtab]}</div>
+      <div className="subtab-content">
+        <h2>{tab?.heading}</h2>
+        <p style={{ fontStyle: "italic", color: "#bdb4e6" }}>{tab?.desc}</p>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p style={{ color: "#e57373" }}>{error}</p>
+        ) : (
+          <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit", marginTop: 16 }}>{tabText}</pre>
+        )}
+      </div>
     </div>
   );
 }
