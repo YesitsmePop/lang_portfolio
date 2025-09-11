@@ -15,7 +15,14 @@ const posts = [
     file: "/posts/post2.txt",
     imgfile: "/posts/images/post2.jpg"
   },
-];
+  {
+    id: 3,
+    title: "Approaches on Change",
+    date: "September 10 2025",
+    file: "/posts/post3.txt",
+    imgfile: "/posts/images/post3.jpg"
+  }
+].sort((a, b) => new Date(b.date) - new Date(a.date));
 
 
 export default function PersonalBlog() {
