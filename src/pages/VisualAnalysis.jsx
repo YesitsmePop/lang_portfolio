@@ -8,6 +8,12 @@ const posts = [
     file: "/visual/analysis1.txt",
     imgfile: "/visual/images/analysis1.jpg"
   },
+  {
+    id: 2,
+    title: "Tiger's Driving. The Best and the Worst.",
+    file: "/visual/analysis2.txt",
+    imgfile: "/visual/images/analysis2.jpg"
+  }
 ];
 
 
