@@ -49,6 +49,13 @@ const posts = [
     date: "March 13 2026",
     file: "/posts/post7.txt",
     imgfile: "/posts/images/post7.jpg"
+  },
+  {
+    id: 8,
+    title: "Quote of the Week: Churchill",
+    date: "April 16 2026",
+    file: "/posts/post8.txt",
+    imgfile: "/posts/images/post8.jpg"
   }
   
 ].sort((a, b) => new Date(b.date) - new Date(a.date));
